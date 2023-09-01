@@ -50,13 +50,13 @@ As a user, I should be able to submit a new post on the endpoint POST localhost:
 - The creation of the message will be successful if and only if the message_text is not blank, is under 255 characters, and posted_by refers to a real, existing user. If successful, the response body should contain a JSON of the message, including its message_id. The response status should be 200, which is the default. The new message should be persisted to the database.
 - If the creation of the message is not successful, the response status should be 400. (Client error)
 
-## 4: Our API should be able to retrieve all messages.
+## [X] 4: Our API should be able to retrieve all messages.
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages.
 
 - The response body should contain a JSON representation of a list containing all messages retrieved from the database. It is expected for the list to simply be empty if there are no messages. The response status should always be 200, which is the default.
 
-## 5: Our API should be able to retrieve a message by its ID.
+## (WIP) 5: Our API should be able to retrieve a message by its ID.
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages/{message_id}.
 
