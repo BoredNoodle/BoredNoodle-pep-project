@@ -56,7 +56,7 @@ As a user, I should be able to submit a GET request on the endpoint GET localhos
 
 - The response body should contain a JSON representation of a list containing all messages retrieved from the database. It is expected for the list to simply be empty if there are no messages. The response status should always be 200, which is the default.
 
-## (WIP) 5: Our API should be able to retrieve a message by its ID.
+## [X] 5: Our API should be able to retrieve a message by its ID.
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages/{message_id}.
 
