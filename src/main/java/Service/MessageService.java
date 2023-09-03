@@ -31,6 +31,6 @@ public class MessageService {
 
     // Use MessageDAO to retrieve a message by its message id
     public Message getMessageById(int message_id) {
-        return getMessageById(message_id);
+        return messageDAO.getMessageById(message_id);
     }
 }
