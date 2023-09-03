@@ -16,7 +16,7 @@ public class AccountService {
      * Constructor for an AccountService when an AccountDAO is provided.
      * This is used for when a mock AccountDAO that exhibits mock behavior is used in the test cases.
      * This would allow the testing of AccountService independently of AccountDAO.
-     * @param messageDAO
+     * @param accountDAO
      */
     public AccountService(AccountDAO accountDAO) {
         this.accountDAO = accountDAO;

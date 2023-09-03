@@ -15,7 +15,7 @@ public class MessageService {
     }
 
     /**
-     * Constructor for a MessageService when a BookDAO is provided.
+     * Constructor for a MessageService when a MessageDAO is provided.
      * This is used for when a mock MessageDAO that exhibits mock behavior is used in the test cases.
      * This would allow the testing of MessageService independently of MessageDAO.
      * @param messageDAO
