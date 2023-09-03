@@ -33,4 +33,9 @@ public class AccountService {
         }
         return accountDAO.insertAccount(account);
     }
+
+    // Use AccountDAO to log in a user
+    public Account login(Account account) {
+        return accountDAO.getAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
+    }
 }

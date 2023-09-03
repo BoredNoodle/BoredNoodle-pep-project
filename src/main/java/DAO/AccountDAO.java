@@ -36,11 +36,33 @@ public class AccountDAO {
         Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "SELECT * FROM account WHERE username = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, username);
 
-            preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Account account = new Account(rs.getInt("account_id"),
+                                            rs.getString("username"),
+                                            rs.getString("password"));
+                return account;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    // Retrieve user account from user table, identified by username and password
+    public Account getAccountByUsernameAndPassword(String username, String password) {
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Account account = new Account(rs.getInt("account_id"),
