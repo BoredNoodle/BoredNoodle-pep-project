@@ -36,6 +36,7 @@ public class SocialMediaController {
         app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postUserAccount);
         app.post("/login", this::postUserLoginHandler);
+        app.post("/messages", this::postNewMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getMessageByIdHandler);
 
@@ -72,6 +73,17 @@ public class SocialMediaController {
         }
     }
 
+    public void postNewMessageHandler(Context ctx) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(ctx.body(), Message.class);
+        Message newMessage = messageService.insertMessage(message);
+        if (newMessage == null) {
+            ctx.status(400);
+        } else {
+            ctx.json(mapper.writeValueAsString(newMessage));
+        }
+    }
+
     /**
      * Handler to retrieve all messages.
      * @param ctx the context object handles information HTTP requests and generates responses within Javalin. It will
@@ -82,6 +94,11 @@ public class SocialMediaController {
         ctx.json(messages);
     }
 
+    /**
+     * Handler to retrieve a message, identified by its message id.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin. It will
+     *            be available to this method automatically thanks to the app.put method.
+     */
     public void getMessageByIdHandler(Context ctx) {
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
         Message message = messageService.getMessageById(message_id);
