@@ -33,7 +33,7 @@ public class MessageDAO {
     }
 
     // Get account_id in account table that matches with by posted_by
-    public Integer getPostedBy(int posted_by) {
+    public int getPostedBy(int posted_by) {
         Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "SELECT account_id FROM account WHERE account_id = ?";
@@ -42,13 +42,13 @@ public class MessageDAO {
             preparedStatement.setInt(1, posted_by);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Integer existing_account_id = rs.getInt("account_id");
+                int existing_account_id = rs.getInt("account_id");
                 return existing_account_id;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return -1;
     }
     
     // Get all messages in the message table
