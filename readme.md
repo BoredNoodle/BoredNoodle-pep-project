@@ -43,7 +43,7 @@ As a user, I should be able to verify my login on the endpoint POST localhost:80
 - If the login is not successful, the response status should be 401. (Unauthorized)
 
 
-## (WIP) 3: Our API should be able to process the creation of new messages.
+## [X] 3: Our API should be able to process the creation of new messages.
 
 As a user, I should be able to submit a new post on the endpoint POST localhost:8080/messages. The request body will contain a JSON representation of a message, which should be persisted to the database, but will not contain a message_id.
 
@@ -62,7 +62,7 @@ As a user, I should be able to submit a GET request on the endpoint GET localhos
 
 - The response body should contain a JSON representation of the message identified by the message_id. It is expected for the response body to simply be empty if there is no such message. The response status should always be 200, which is the default.
 
-## 6: Our API should be able to delete a message identified by a message ID.
+## (WIP) 6: Our API should be able to delete a message identified by a message ID.
 
 As a User, I should be able to submit a DELETE request on the endpoint DELETE localhost:8080/messages/{message_id}.
 
