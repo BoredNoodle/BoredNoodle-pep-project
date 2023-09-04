@@ -30,10 +30,11 @@ public class MessageService {
             return null;
         } else if (message.getMessage_text().length() >= 255) {
             return null;
-        } else if (messageDAO.getPostedBy(message.getPosted_by()) == null) {
+        } else if (messageDAO.getPostedBy(message.getPosted_by()) < 0) {
             return null;
         }
-        return insertMessage(message);
+        
+        return messageDAO.insertMessage(message);
     }
 
     // Use MessageDAO to retrieve all messages
