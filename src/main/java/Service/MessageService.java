@@ -24,6 +24,18 @@ public class MessageService {
         this.messageDAO = messageDAO;
     }
 
+    // Use MessageDAO to insert a new message into the message table
+    public Message insertMessage(Message message) {
+        if (message.getMessage_text().isEmpty()) {
+            return null;
+        } else if (message.getMessage_text().length() >= 255) {
+            return null;
+        } else if (messageDAO.getPostedBy(message.getPosted_by()) == null) {
+            return null;
+        }
+        return insertMessage(message);
+    }
+
     // Use MessageDAO to retrieve all messages
     public List<Message> getAllMessages() {
         return messageDAO.getAllMessages();
