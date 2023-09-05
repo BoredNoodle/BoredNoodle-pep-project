@@ -52,4 +52,15 @@ public class MessageService {
         messageDAO.deleteMessage(message_id);
         return deletedMessage;
     }
+
+    public Message updateMessage(int message_id, String message_text) {
+        if (messageDAO.getMessageById(message_id) == null) {
+            return null;
+        } else if (message_text.isEmpty() || message_text.length() > 255) {
+            return null;
+        }
+        
+        messageDAO.updateMessage(message_id, message_text);
+        return messageDAO.getMessageById(message_id);
+    }
 }
