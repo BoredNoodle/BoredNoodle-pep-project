@@ -34,7 +34,7 @@ public class SocialMediaController {
     public Javalin startAPI() {
         Javalin app = Javalin.create();
         app.post("/register", this::postNewAccount);
-        app.post("/login", this::postUserLoginHandler);
+        app.post("/login", this::postLoginHandler);
         app.post("/messages", this::postNewMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getMessageByIdHandler);
@@ -48,7 +48,7 @@ public class SocialMediaController {
     /**
      * Handler to post a new account.
      * The Jackson ObjectMapper will automatically convert the JSON of the POST request into an Account object.
-     * If accountService returns a null account (meaning posting an account was unsuccessful, the API will return 
+     * If accountService returns a null account (meaning posting an account was unsuccessful), the API will return 
      * a 400 message (client error).
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
@@ -63,15 +63,22 @@ public class SocialMediaController {
             ctx.status(400);
     }
 
-    public void postUserLoginHandler(Context ctx) throws JsonProcessingException {
+    /**
+     * Handler to post an account login.
+     * The Jackson ObjectMapper will automatically convert the JSON of the POST request into an Account object.
+     * If accountService returns a null account (meaning an account with a matching username and password was 
+     * not found), the API will return a 401 message (unauthorized).
+     * @param ctx The Javalin Context object manages information about both the HTTP request and response.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
+    public void postLoginHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
         Account loginAccount = accountService.login(account);
-        if (loginAccount == null) {
-            ctx.status(401);
-        } else {
+        if (loginAccount != null)
             ctx.json(mapper.writeValueAsString(loginAccount));
-        }
+        else
+            ctx.status(401);
     }
 
     public void postNewMessageHandler(Context ctx) throws JsonProcessingException {
