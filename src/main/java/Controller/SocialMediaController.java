@@ -100,9 +100,10 @@ public class SocialMediaController {
     }
 
     /**
-     * Handler to retrieve all messages.
-     * @param ctx the context object handles information HTTP requests and generates responses within Javalin. It will
-     *            be available to this method automatically thanks to the app.put method.
+     * Handler to get all messages.
+     * If messageService returns a list of message objects, The API will return a 200 message (OK), even if 
+     * the returned list of messages is empty.
+     * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      */
     public void getAllMessagesHandler(Context ctx) {
         List<Message> messages = messageService.getAllMessages();
