@@ -56,7 +56,9 @@ public class MessageService {
     public Message updateMessage(int message_id, String message_text) {
         if (messageDAO.getMessageById(message_id) == null) {
             return null;
-        } else if (message_text.isEmpty() || message_text.length() > 255) {
+        } else if (message_text.isEmpty()) {
+            return null;
+        } else if (message_text.length() >= 255) {
             return null;
         }
         
