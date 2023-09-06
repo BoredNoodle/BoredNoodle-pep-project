@@ -111,9 +111,11 @@ public class SocialMediaController {
     }
 
     /**
-     * Handler to retrieve a message, identified by its message id.
-     * @param ctx the context object handles information HTTP requests and generates responses within Javalin. It will
-     *            be available to this method automatically thanks to the app.put method.
+     * Handler to get a message, identified by its message id
+     * The message id is parsed from the PATH parameter of the context object. 
+     * The API will return a 200 message (OK), even if messageService returns a null Message object (meaning 
+     * a message with the given message id wasn't found).
+     * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      */
     public void getMessageByIdHandler(Context ctx) {
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
