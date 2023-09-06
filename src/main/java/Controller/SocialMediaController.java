@@ -33,7 +33,7 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
-        app.post("/register", this::postNewAccount);
+        app.post("/register", this::postNewAccountHandler);
         app.post("/login", this::postLoginHandler);
         app.post("/messages", this::postNewMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
@@ -53,7 +53,7 @@ public class SocialMediaController {
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
      */
-    private void postNewAccount(Context ctx) throws JsonProcessingException {
+    private void postNewAccountHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
         Account newAccount = accountService.insertAccount(account);
@@ -81,15 +81,22 @@ public class SocialMediaController {
             ctx.status(401);
     }
 
+    /**
+     * Handler to post a new message.
+     * The Jackson ObjectMapper will automatically convert the JSON of the POST request into a Message object.
+     * If messageService returns a null message (meaning posting a message was unsuccessful), the API will return 
+     * a 400 message (client error).
+     * @param ctx The Javalin Context object manages information about both the HTTP request and response.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
     public void postNewMessageHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Message message = mapper.readValue(ctx.body(), Message.class);
         Message newMessage = messageService.insertMessage(message);
-        if (newMessage == null) {
-            ctx.status(400);
-        } else {
+        if (newMessage != null)
             ctx.json(mapper.writeValueAsString(newMessage));
-        }
+        else
+            ctx.status(400);
     }
 
     /**
