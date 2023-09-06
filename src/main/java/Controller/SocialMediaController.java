@@ -40,7 +40,7 @@ public class SocialMediaController {
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getMessageByIdHandler);
         app.delete("/messages/{message_id}", this::deleteMessageHandler);
-        app.patch("/messages/{message_id}", this::patchUpdateMessageHandler);
+        app.patch("/messages/{message_id}", this::patchMessageHandler);
         app.get("/accounts/{account_id}/messages", this::getUserMessages);
 
         return app;
@@ -120,13 +120,13 @@ public class SocialMediaController {
             ctx.json("");
     }
 
-    public void patchUpdateMessageHandler(Context ctx) throws JsonProcessingException {
+    public void patchMessageHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        String message_text = mapper.readValue(ctx.body(), String.class);
+        String message_text = mapper.readValue(ctx.body(), Message.class).getMessage_text();
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
         Message updatedMessage = messageService.updateMessage(message_id, message_text);
         if (updatedMessage != null)
-            ctx.json(mapper.writeValueAsString(updatedMessage));
+            ctx.json(updatedMessage);
         else
             ctx.status(400);
     }
