@@ -1,16 +1,16 @@
 package Controller;
 
+import java.util.List;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import Model.Account;
 import Model.Message;
 import Service.AccountService;
 import Service.MessageService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
-import java.util.List;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
@@ -34,7 +34,7 @@ public class SocialMediaController {
     public Javalin startAPI() {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler);
-        app.post("/register", this::postUserAccount);
+        app.post("/register", this::postNewAccount);
         app.post("/login", this::postUserLoginHandler);
         app.post("/messages", this::postNewMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
@@ -54,15 +54,22 @@ public class SocialMediaController {
         context.json("sample text");
     }
 
-    private void postUserAccount(Context ctx) throws JsonProcessingException {
+    /**
+     * Handler to post a new account.
+     * The Jackson ObjectMapper will automatically convert the JSON of the POST request into an Account object.
+     * If accountService returns a null account (meaning posting an account was unsuccessful, the API will return 
+     * a 400 message (client error).
+     * @param ctx The Javalin Context object manages information about both the HTTP request and response.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
+    private void postNewAccount(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
-        Account addedAccount = accountService.insertAccount(account);
-        if (addedAccount == null) {
+        Account newAccount = accountService.insertAccount(account);
+        if (newAccount != null)
+            ctx.json(mapper.writeValueAsString(newAccount)); 
+        else
             ctx.status(400);
-        } else {
-            ctx.json(mapper.writeValueAsString(addedAccount));
-        }
     }
 
     public void postUserLoginHandler(Context ctx) throws JsonProcessingException {
