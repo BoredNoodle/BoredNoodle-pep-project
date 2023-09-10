@@ -32,7 +32,7 @@ public class MessageService {
      *         requirements or if the insert operation was unsuccessful.
      */
     public Message insertMessage(Message message) {
-        if (message.getMessage_text().isEmpty()) {
+        if (message.getMessage_text().isBlank()) {
             return null;
         } else if (message.getMessage_text().length() >= 255) {
             return null;
@@ -85,7 +85,7 @@ public class MessageService {
     public Message updateMessage(int message_id, String message_text) {
         if (messageDAO.getMessageById(message_id) == null) {
             return null;
-        } else if (message_text.isEmpty()) {
+        } else if (message_text.isBlank()) {
             return null;
         } else if (message_text.length() >= 255) {
             return null;
