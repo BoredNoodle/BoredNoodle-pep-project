@@ -126,6 +126,13 @@ public class SocialMediaController {
             ctx.json("");
     }
 
+    /**
+     * Handler to delete a message, identified by its message id
+     * The message id is parsed from the PATH parameter of the context object. 
+     * The API will return a 200 message (OK), even if messageService returns a null Message object (meaning 
+     * a message to be deleted wasn't found with the given message id).
+     * @param ctx The Javalin Context object manages information about both the HTTP request and response.
+     */
     public void deleteMessageHandler(Context ctx) {
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
         Message deletedMessage = messageService.deleteMessage(message_id);
