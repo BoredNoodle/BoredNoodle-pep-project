@@ -163,6 +163,12 @@ public class SocialMediaController {
             ctx.status(400);
     }
 
+    /**
+     * Handler to get all of a user's messages, identified by the account id.
+     * If messageService returns a list of message objects, The API will return a 200 message (OK), even if 
+     * the returned list of messages is empty.
+     * @param ctx The Javalin Context object manages information about both the HTTP request and response.
+     */
     public void getUserMessages(Context ctx) {
         int account_id = Integer.parseInt(ctx.pathParam("account_id"));
         List<Message> userMessages = messageService.getUserMessages(account_id);
