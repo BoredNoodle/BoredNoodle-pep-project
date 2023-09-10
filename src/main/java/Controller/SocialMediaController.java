@@ -141,7 +141,17 @@ public class SocialMediaController {
         else
             ctx.json("");
     }
-
+    
+    /**
+     * Handler to update a message, identified by its message id
+     * The Jackson ObjectMapper will automatically convert the JSON of the POST request into a Message object.
+     * The message text is retrieved from the Message object using the .getMessage_text() method.
+     * The message id is parsed from the PATH parameter of the context object.
+     * If messageService returns a null message (meaning updating a message was unsuccessful), the API will return 
+     * a 400 message (client error).
+     * @param ctx The Javalin Context object manages information about both the HTTP request and response.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
     public void patchMessageHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         String message_text = mapper.readValue(ctx.body(), Message.class).getMessage_text();
