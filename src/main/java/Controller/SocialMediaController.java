@@ -48,8 +48,8 @@ public class SocialMediaController {
     /**
      * Handler to post a new account.
      * The Jackson ObjectMapper will automatically convert the JSON of the POST request into an Account object.
-     * If accountService returns a null account (meaning posting an account was unsuccessful), the API will return 
-     * a 400 message (client error).
+     * If accountService returns a <code>null</code> account (meaning posting an account was unsuccessful), the 
+     * API will return a 400 message (client error).
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
      */
@@ -66,8 +66,8 @@ public class SocialMediaController {
     /**
      * Handler to post an account login.
      * The Jackson ObjectMapper will automatically convert the JSON of the POST request into an Account object.
-     * If accountService returns a null account (meaning an account with a matching username and password was 
-     * not found), the API will return a 401 message (unauthorized).
+     * If accountService returns a <code>null</code> account (meaning an account with a matching username and 
+     * password was not found), the API will return a 401 message (unauthorized).
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
      */
@@ -84,8 +84,8 @@ public class SocialMediaController {
     /**
      * Handler to post a new message.
      * The Jackson ObjectMapper will automatically convert the JSON of the POST request into a Message object.
-     * If messageService returns a null message (meaning posting a message was unsuccessful), the API will return 
-     * a 400 message (client error).
+     * If messageService returns a <code>null</code> message (meaning posting a message was unsuccessful), the 
+     * API will return a 400 message (client error).
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
      */
@@ -113,8 +113,8 @@ public class SocialMediaController {
     /**
      * Handler to get a message, identified by its message id
      * The message id is parsed from the PATH parameter of the context object. 
-     * The API will return a 200 message (OK), even if messageService returns a null Message object (meaning 
-     * a message with the given message id wasn't found).
+     * The API will return a 200 message (OK), even if messageService returns a <code>null</code> Message 
+     * object (meaning a message with the given message id wasn't found).
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      */
     public void getMessageByIdHandler(Context ctx) {
@@ -129,8 +129,8 @@ public class SocialMediaController {
     /**
      * Handler to delete a message, identified by its message id
      * The message id is parsed from the PATH parameter of the context object. 
-     * The API will return a 200 message (OK), even if messageService returns a null Message object (meaning 
-     * a message to be deleted wasn't found with the given message id).
+     * The API will return a 200 message (OK), even if messageService returns a <code>null</code> Message 
+     * object (meaning a message to be deleted wasn't found with the given message id).
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      */
     public void deleteMessageHandler(Context ctx) {
@@ -147,8 +147,8 @@ public class SocialMediaController {
      * The Jackson ObjectMapper will automatically convert the JSON of the POST request into a Message object.
      * The message text is retrieved from the Message object using the .getMessage_text() method.
      * The message id is parsed from the PATH parameter of the context object.
-     * If messageService returns a null message (meaning updating a message was unsuccessful), the API will return 
-     * a 400 message (client error).
+     * If messageService returns a <code>null</code> message (meaning updating a message was unsuccessful),
+     * the API will return a 400 message (client error).
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
      */
