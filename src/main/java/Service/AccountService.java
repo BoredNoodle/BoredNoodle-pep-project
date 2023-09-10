@@ -26,15 +26,15 @@ public class AccountService {
      * Use the AccountDAO to insert a new account into the database.
      * @param account an object representing a new account.
      * @return the newly added account if the insert operation was successful, including 
-     *         its account_id. Return null if the new account failed to meet the account 
-     *         requirements or if the insert operation was unsuccessful.
+     *         its account_id. Return <code>null</code> if the new account failed to meet 
+     *         the account requirements or if the insert operation was unsuccessful.
      */
     public Account insertAccount(Account account) {
         if (account.getUsername().isBlank()) {
             return null;
         } else if (account.getPassword().length() < 4 || account.getPassword().isBlank()) {
             return null;
-        } else if (accountDAO.getAccountByUsername(account.getUsername()) != null) {
+        } else if (accountDAO.getAccount(account.getUsername()) != null) {
             return null;
         }
         return accountDAO.insertAccount(account);
@@ -44,9 +44,10 @@ public class AccountService {
      * Use the AccountDAO to retrieve an account from the database, i.e., "login" a user.
      * @param account an object representing the account to retrieve.
      * @return the retrieved account if the get operation was successful, including 
-     *         its account_id. Return null if the get operation was unsuccessful.
+     *         its account_id. Return <code>null</code> if the get operation was 
+     *         unsuccessful.
      */
     public Account login(Account account) {
-        return accountDAO.getAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
+        return accountDAO.getAccount(account.getUsername(), account.getPassword());
     }
 }
