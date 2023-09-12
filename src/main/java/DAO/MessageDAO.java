@@ -49,6 +49,7 @@ public class MessageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setInt(1, posted_by);
+            
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 int existing_account_id = rs.getInt("account_id");
@@ -70,6 +71,7 @@ public class MessageDAO {
         try {
             String sql = "SELECT * FROM message";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Message message = new Message(rs.getInt("message_id"),
@@ -97,6 +99,7 @@ public class MessageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setInt(1, message_id);
+
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 Message message = new Message(rs.getInt("message_id"),
