@@ -33,27 +33,27 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
-        app.post("/register", this::postNewAccountHandler);
+        app.post("/register", this::postNewUserHandler);
         app.post("/login", this::postLoginHandler);
         app.post("/messages", this::postNewMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getMessageByIdHandler);
         app.delete("/messages/{message_id}", this::deleteMessageHandler);
         app.patch("/messages/{message_id}", this::patchMessageHandler);
-        app.get("/accounts/{account_id}/messages", this::getUserMessages);
+        app.get("/accounts/{account_id}/messages", this::getUserMessagesHandler);
 
         return app;
     }
 
     /**
-     * Handler to post a new account.
+     * Handler to post a new user.
      * The Jackson ObjectMapper will automatically convert the JSON of the POST request into an Account object.
      * If accountService returns a <code>null</code> account (meaning posting an account was unsuccessful), the 
      * API will return a 400 message (client error).
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
      */
-    private void postNewAccountHandler(Context ctx) throws JsonProcessingException {
+    private void postNewUserHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
         Account newAccount = accountService.insertAccount(account);
@@ -64,7 +64,7 @@ public class SocialMediaController {
     }
 
     /**
-     * Handler to post an account login.
+     * Handler to post a user login.
      * The Jackson ObjectMapper will automatically convert the JSON of the POST request into an Account object.
      * If accountService returns a <code>null</code> account (meaning an account with a matching username and 
      * password was not found), the API will return a 401 message (unauthorized).
@@ -169,7 +169,7 @@ public class SocialMediaController {
      * the returned list of messages is empty.
      * @param ctx The Javalin Context object manages information about both the HTTP request and response.
      */
-    public void getUserMessages(Context ctx) {
+    public void getUserMessagesHandler(Context ctx) {
         int account_id = Integer.parseInt(ctx.pathParam("account_id"));
         List<Message> userMessages = messageService.getUserMessages(account_id);
         ctx.json(userMessages);
