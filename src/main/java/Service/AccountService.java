@@ -30,13 +30,13 @@ public class AccountService {
      *         the account requirements or if the insert operation was unsuccessful.
      */
     public Account insertAccount(Account account) {
-        if (account.getUsername().isBlank()) {
+        if (account.getUsername().isBlank())
             return null;
-        } else if (account.getPassword().length() < 4 || account.getPassword().isBlank()) {
+        else if (account.getPassword().length() < 4 || account.getPassword().isBlank())
             return null;
-        } else if (accountDAO.getAccount(account.getUsername()) != null) {
+        else if (accountDAO.getAccount(account.getUsername()) != null)
             return null;
-        }
+        
         return accountDAO.insertAccount(account);
     }
 

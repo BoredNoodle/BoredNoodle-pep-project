@@ -32,13 +32,12 @@ public class MessageService {
      *         message requirements or if the insert operation was unsuccessful.
      */
     public Message insertMessage(Message message) {
-        if (message.getMessage_text().isBlank()) {
+        if (message.getMessage_text().isBlank())
             return null;
-        } else if (message.getMessage_text().length() >= 255) {
+        else if (message.getMessage_text().length() >= 255)
             return null;
-        } else if (messageDAO.getPostedBy(message.getPosted_by()) < 0) {
+        else if (messageDAO.getPostedBy(message.getPosted_by()) < 0)
             return null;
-        }
         
         return messageDAO.insertMessage(message);
     }
@@ -84,13 +83,12 @@ public class MessageService {
      *         for a message text or a message was not found with the given message id.
      */
     public Message updateMessage(int message_id, String message_text) {
-        if (messageDAO.getMessageById(message_id) == null) {
+        if (messageDAO.getMessageById(message_id) == null)
             return null;
-        } else if (message_text.isBlank()) {
+        else if (message_text.isBlank())
             return null;
-        } else if (message_text.length() >= 255) {
+        else if (message_text.length() >= 255)
             return null;
-        }
         
         messageDAO.updateMessage(message_id, message_text);
         return messageDAO.getMessageById(message_id);
