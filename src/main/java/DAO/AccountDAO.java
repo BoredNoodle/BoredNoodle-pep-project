@@ -48,7 +48,7 @@ public class AccountDAO {
             preparedStatement.setString(1, username);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 Account account = new Account(rs.getInt("account_id"),
                                             rs.getString("username"),
                                             rs.getString("password"));
@@ -76,7 +76,7 @@ public class AccountDAO {
             preparedStatement.setString(2, password);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 Account account = new Account(rs.getInt("account_id"),
                                             rs.getString("username"),
                                             rs.getString("password"));

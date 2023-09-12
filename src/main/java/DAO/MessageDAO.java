@@ -40,7 +40,7 @@ public class MessageDAO {
     /**
      * Retrieves an account from the Account table using a message's posted_by account id.
      * @param posted_by an account_id.
-     * @return the found account. Return <code>null</code> if account retrieval was unsuccessful.
+     * @return the found account id. Return -1 if account id retrieval was unsuccessful.
      */
     public int getPostedBy(int posted_by) {
         Connection connection = ConnectionUtil.getConnection();
@@ -50,7 +50,7 @@ public class MessageDAO {
 
             preparedStatement.setInt(1, posted_by);
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 int existing_account_id = rs.getInt("account_id");
                 return existing_account_id;
             }
@@ -98,7 +98,7 @@ public class MessageDAO {
 
             preparedStatement.setInt(1, message_id);
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 Message message = new Message(rs.getInt("message_id"),
                                             rs.getInt("posted_by"),
                                             rs.getString("message_text"),
