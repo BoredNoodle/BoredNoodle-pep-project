@@ -38,7 +38,7 @@ public class MessageDAO {
     }
 
     /**
-     * Retrieves an account from the Account table using a message's posted_by account id.
+     * Retrieves an account id from the Account table using a message's posted_by account id.
      * @param posted_by an account_id.
      * @return the found account id. Return -1 if account id retrieval was unsuccessful.
      */
