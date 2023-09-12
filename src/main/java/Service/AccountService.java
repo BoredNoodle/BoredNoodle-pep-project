@@ -26,7 +26,7 @@ public class AccountService {
      * Use the AccountDAO to insert a new account into the database.
      * @param account an object representing a new account.
      * @return the newly added account if the insert operation was successful, including 
-     *         its account_id. Return <code>null</code> if the new account failed to meet 
+     *         its account id. Return <code>null</code> if the new account failed to meet 
      *         the account requirements or if the insert operation was unsuccessful.
      */
     public Account insertAccount(Account account) {
@@ -43,8 +43,8 @@ public class AccountService {
     /**
      * Use the AccountDAO to retrieve an account from the database, i.e., "login" a user.
      * @param account an object representing the account to retrieve.
-     * @return the retrieved account if the get operation was successful, including 
-     *         its account_id. Return <code>null</code> if the get operation was 
+     * @return the retrieved account if the login operation was successful, including 
+     *         its account id. Return <code>null</code> if the login operation was 
      *         unsuccessful.
      */
     public Account login(Account account) {
